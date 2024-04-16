@@ -46,11 +46,9 @@ class ClientViewSet(viewsets.ViewSet):
         client = get_object_or_404(Client, pk=pk)
         serializer = ClientSerializer(client)
         
-        # Serialize related projects
         projects = client.project_set.all()
         projects_data = ProjectSerializer(projects, many=True).data
 
-        # Combine client data with projects data
         client_data = serializer.data
         client_data['projects'] = projects_data
 
